@@ -1,0 +1,31 @@
+.page {
+    padding: 70px 30px;
+
+    &__section {
+        padding: 30px;
+        margin: 0 auto;
+
+        .page__title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .page__text {
+            line-height: 150%;
+        }
+
+        &.page__section_1 {
+            background: rgb(26, 106, 211);
+            color: white;
+        }
+
+        &.page__section_2 {
+            background: rgb(24, 218, 127);
+        }
+
+        &.page__section_3 {
+            background: rgb(236, 204, 25);
+        }
+    }
+}
