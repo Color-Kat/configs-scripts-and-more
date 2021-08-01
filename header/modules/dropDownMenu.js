@@ -9,7 +9,13 @@ export default function () {
         for (let i = 0; i < menuArrows.length; i++) {
             const menuArrow = menuArrows[i];
             // click on parent (can add click on arrow if it is link)
-            menuArrow.parentElement.addEventListener('click', function () {
+            menuArrow.addEventListener('click', function () {
+                // hide all drop down menu instead of current
+                menuArrows.forEach(elem =>
+                    elem != menuArrow ? elem.parentElement.classList.remove('_active') : null
+                );
+
+
                 menuArrow.parentElement.classList.toggle('_active');
             });
         }
