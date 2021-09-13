@@ -1,0 +1,49 @@
+version: '3'
+
+services: 
+
+  #web services (php and extentions)
+  web:  
+    # path to Dockerfile for web
+    build: ./web
+    # for rights in apache
+    environment: 
+      - APACHE_RUN_USER=#1000
+    volumes: 
+      # path to application on local machine : path to application in container
+      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+    ports: 
+      - 8080:80
+    # app files in container is here
+    working_dir: ${APP_PATH_CONTAINER}
+
+  # databases
+  db:
+    image: mariadb
+    # restart container if an error occurs
+    restart: always
+    # sync db on local machine and in container
+    volumes: 
+      - ${DB_PATH_HOST}:/var/lib/mysql
+    # mysql password for root user
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+
+  # adminer for control database
+  adminer:
+    image: adminer
+    # restart container if an error occurs
+    restart: always
+    ports:
+      - 6080:8080
+
+  # install composer
+  composer:
+    image: composer:1.6
+    volumes: 
+      # to composer has access to the app files
+      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+    # workdir where scripts run
+    working_dir: ${APP_PATH_CONTAINER}
+    # install composer dependencies
+    command: composer install
